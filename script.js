@@ -1,6 +1,25 @@
 const AGENT_PHONE_NUMBER = "+919876543210";
 
 const form = document.querySelector("#contactForm");
+const menuToggle = document.querySelector(".menu-toggle");
+const primaryNav = document.querySelector("#primaryNav");
+
+menuToggle.addEventListener("click", () => {
+  const isOpen = primaryNav.classList.toggle("is-open");
+
+  menuToggle.classList.toggle("is-open", isOpen);
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+});
+
+primaryNav.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    primaryNav.classList.remove("is-open");
+    menuToggle.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open menu");
+  });
+});
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
